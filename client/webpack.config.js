@@ -3,37 +3,34 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
-
-
-
 module.exports = () => {
   return {
     mode: 'development',
     entry: {
       main: './src/js/index.js',
-      install: './src/js/install.js'
+      install: './src/js/install.js',
     },
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      //Adding webpack plugin to generate HTML and inject bundles
+      // Adding Webpack plugin to generate HTML and inject our bundles
       new HtmlWebpackPlugin({
-        template : './index.html',
-        title : 'JATE'
+        template: './index.html',
+        title: 'JATE'
       }),
       // TODO: Add and configure workbox plugins for a service worker and manifest file.
-      //service worker
-      new InjectManifest ({
-        swSrc : './src-sw.js',
+      // service worker
+      new InjectManifest({
+        swSrc: './src-sw.js',
         swDest: 'src-sw.js',
       }),
       // manifest.json
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
-        name: 'text-editor',
+        name: 'TextEditor',
         short_name: 'JATE',
         description: 'Just Another Text Editor!',
         background_color: '#225ca3',
@@ -55,7 +52,7 @@ module.exports = () => {
       rules: [
         {
           test: /\.css$/i,
-          use : ['style-loader', 'css-loader'],
+          use: ['style-loader', 'css-loader'],
         },
         {
           test: /\.m?js$/,
@@ -67,7 +64,7 @@ module.exports = () => {
               plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime']
             },
           },
-        },        
+        },
       ],
     },
   };
